@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 import './SignupPage.css';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {auth} from './fireBaseAuth';
+import {toast} from "react-toastify";
 
 const SignupPage = () => {
     const navigate = useNavigate();
@@ -19,7 +22,15 @@ const SignupPage = () => {
         setSelectedOption(option);
     };
 
-    const handleLogin = () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try{
+            await createUserWithEmailAndPassword(auth,username,password);
+            const user=auth.currentUser;
+            console.log(user);
+        }catch(error){
+            console.log(error.message);
+        }
         console.log('Signing in with:', username, password);
         if (!name) {
             setErrorMessage('Please enter name.');
@@ -46,7 +57,8 @@ const SignupPage = () => {
             return;
         }
         
-        setErrorMessage('');
+        console.log("User Registered Successfully");
+        toast.success("User Registered Successfully",{position:"top-center"});
         navigate('/homepage');
     };
 

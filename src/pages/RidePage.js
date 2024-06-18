@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import NavigationBar from '../components/NavigationBar';
 import SearchBar from '../components/SearchBar';
 import './RidePage.css';
-
+// Ride Page 
 const RidePage = () => {
   const [isRide, setIsRide] = useState(true);
   const [selectedFilters, setSelectedFilters] = useState({
